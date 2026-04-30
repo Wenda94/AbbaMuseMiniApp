@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#f2ebd9">
-    <meta name="description" content="የአባ ሙሴ ጸሊም የተማሪዎች ህብረት ይፋዊ የዲጂታል መተግበሪያ።">
-    <meta name="author" content="Abba Muse Tselim Union">
-    
+    <meta name="theme-color" content="#f9f6f0">
     <title>አባ ሙሴ ጸሊም የተማሪዎች ህብረት</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -26,7 +23,7 @@
                 <div class="user-profile-section">
                     <div class="profile-image-container">
                         <i class="fa-solid fa-circle-user placeholder-avatar"></i>
-                        <img src="" id="user-profile-image" alt="የተጠቃሚ ምስል" class="hidden-element">
+                        <img src="" id="user-profile-image" alt="ምስል" class="hidden-element">
                     </div>
                     <div class="user-greeting-info">
                         <span class="greeting-time" id="time-based-greeting">እንኳን ደህና መጡ፣</span>
@@ -39,29 +36,23 @@
                 </button>
             </header>
 
+            <!-- 🌟 የተጨመቀ (Compact) ፕሪሚየም ካርድ 🌟 -->
             <article class="membership-card-container">
-                <div class="brand-card">
-                    <div class="card-header-row">
+                <div class="brand-card compact-card">
+                    <div class="card-top-row">
                         <div class="organization-branding">
-                            <i class="fa-solid fa-church brand-icon"></i>
-                            <span class="brand-title">አባ ሙሴ ጸሊም</span>
+                            <i class="fa-solid fa-church brand-icon"></i> <span>አባ ሙሴ ጸሊም</span>
                         </div>
                         <div class="verification-icon"><i class="fa-solid fa-qrcode"></i></div>
                     </div>
-                    <div class="card-details-row">
+                    
+                    <div class="card-middle-row">
                         <h2 class="member-name-display" id="card-member-name">ስም እየመጣ ነው...</h2>
-                        <div class="member-id-display">
-                            <span class="id-label">መለያ ቁጥር:</span>
-                            <span class="id-value" id="card-member-id">000000</span>
-                        </div>
                     </div>
-                    <div class="card-footer-row">
-                        <div class="membership-status active-status">
-                            <i class="fa-solid fa-circle-check"></i><span>ንቁ አባል</span>
-                        </div>
-                        <div class="membership-tier">
-                            <i class="fa-solid fa-cross"></i><span>ተማሪ</span>
-                        </div>
+
+                    <div class="card-bottom-row">
+                        <div class="member-id-display">መለያ: <span id="card-member-id">000000</span></div>
+                        <div class="active-status"><i class="fa-solid fa-circle-check"></i> ንቁ</div>
                     </div>
                 </div>
             </article>
@@ -74,14 +65,14 @@
             </div>
 
             <nav class="services-grid-navigation">
-                <h3 class="section-heading">ዋና አገልግሎቶች</h3>
+                <h3 class="section-heading">አገልግሎቶች</h3>
                 <div class="grid-layout">
                     <button class="grid-card-item" onclick="appNavigation.openScreen('screen-library')">
                         <div class="card-icon-wrapper theme-orange"><i class="fa-solid fa-book-open-reader"></i></div>
                         <span class="card-title">ትምህርት መርጃ</span>
                     </button>
                     <button class="grid-card-item" onclick="appNavigation.openScreen('screen-prayer')">
-                        <div class="card-icon-wrapper theme-black"><i class="fa-solid fa-hands-praying"></i></div>
+                        <div class="card-icon-wrapper theme-base"><i class="fa-solid fa-hands-praying"></i></div>
                         <span class="card-title">የጸሎት ሳጥን</span>
                     </button>
                     <button class="grid-card-item" onclick="appNavigation.openScreen('screen-tutoring')">
@@ -89,7 +80,7 @@
                         <span class="card-title">ቱቶሪያል</span>
                     </button>
                     <button class="grid-card-item" onclick="tg.showAlert('በቅርቡ የሚከፈት ይሆናል!')">
-                        <div class="card-icon-wrapper theme-black"><i class="fa-solid fa-ranking-star"></i></div>
+                        <div class="card-icon-wrapper theme-base"><i class="fa-solid fa-ranking-star"></i></div>
                         <span class="card-title">ደረጃ ሰንጠረዥ</span>
                     </button>
                 </div>
@@ -105,14 +96,12 @@
             </header>
             <div class="screen-content-scrollable">
                 <div class="filter-tabs-container">
-                    <button class="filter-tab active-tab">9ኛ ክፍል</button>
+                    <button class="filter-tab active-tab">9ኛ</button>
                     <button class="filter-tab">10ኛ</button>
                     <button class="filter-tab">11ኛ</button>
                     <button class="filter-tab">12ኛ</button>
                 </div>
-                <div class="document-list-container" id="student-docs-list">
-                    <!-- Documents load here -->
-                </div>
+                <div class="document-list-container" id="student-docs-list"></div>
             </div>
         </section>
 
@@ -122,7 +111,7 @@
                 <button class="back-navigation" onclick="appNavigation.goBack()"><i class="fa-solid fa-arrow-left"></i></button>
                 <h2 class="sub-screen-title">የምስጢር ሳጥን</h2>
             </header>
-            <div class="screen-content-scrollable centered-content">
+            <div class="screen-content-scrollable">
                 <div class="confidentiality-notice">
                     <i class="fa-solid fa-shield-halved notice-icon"></i>
                     <p class="notice-text">ይህ መረጃ በሚስጥር የተጠበቀ ነው። የሚደርሰው ለአስተዳዳሪዎች ብቻ ነው።</p>
@@ -137,9 +126,9 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">መልእክት</label>
-                        <textarea id="secret-message" class="form-textarea" rows="6" placeholder="የልብዎን ሀሳብ ያካፍሉን..." required></textarea>
+                        <textarea id="secret-message" class="form-textarea" rows="5" placeholder="የልብዎን ሀሳብ ያካፍሉን..." required></textarea>
                     </div>
-                    <button type="submit" class="primary-action-button"><i class="fa-solid fa-paper-plane"></i> ላክ</button>
+                    <button type="submit" class="primary-action-button">ላክ</button>
                 </form>
             </div>
         </section>
@@ -164,7 +153,7 @@
                         <label class="form-label">የሚከብድዎት ርዕስ</label>
                         <input type="text" id="specific-topic" class="form-input" required>
                     </div>
-                    <button type="submit" class="primary-action-button"><i class="fa-solid fa-check"></i> አስገባ</button>
+                    <button type="submit" class="primary-action-button">አስገባ</button>
                 </form>
             </div>
         </section>
@@ -175,71 +164,62 @@
                 <button class="back-navigation" onclick="appNavigation.goBack()"><i class="fa-solid fa-arrow-left"></i></button>
                 <h2 class="sub-screen-title">ማሳወቂያዎች</h2>
             </header>
-            <div class="screen-content-scrollable">
-                <div class="notification-list" id="user-notifications-list"></div>
-            </div>
+            <div class="screen-content-scrollable" id="user-notifications-list"></div>
         </section>
 
         <!-- Admin Panel -->
-        <section id="screen-admin" class="app-screen hidden-screen admin-theme">
-            <header class="sub-screen-header admin-header">
+        <section id="screen-admin" class="app-screen hidden-screen">
+            <header class="sub-screen-header">
                 <button class="back-navigation" onclick="appNavigation.goBack()"><i class="fa-solid fa-arrow-left"></i></button>
                 <h2 class="sub-screen-title">አስተዳዳሪ ክፍል</h2>
             </header>
             <div class="screen-content-scrollable">
                 <div class="admin-tabs">
-                    <button class="admin-tab active-tab" onclick="adminPanel.switchTab('upload')">ፋይል ጫን</button>
+                    <button class="admin-tab active-tab" onclick="adminPanel.switchTab('upload')">ጫን</button>
                     <button class="admin-tab" onclick="adminPanel.switchTab('messages')">መልእክቶች</button>
                     <button class="admin-tab" onclick="adminPanel.switchTab('broadcast')">ማሳወቂያ</button>
                 </div>
-
-                <!-- Admin Upload Form (File Manager) -->
+                <!-- Upload Form -->
                 <div id="admin-tab-upload" class="admin-tab-content active-content">
                     <form id="admin-upload-form" class="standard-form">
                         <div class="form-group">
-                            <label class="form-label">የፋይሉ ርዕስ (ስም)</label>
+                            <label class="form-label">የፋይሉ ርዕስ</label>
                             <input type="text" id="doc-title" class="form-input" required>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">የክፍል ደረጃ</label>
+                            <label class="form-label">ክፍል</label>
                             <select id="doc-grade" class="form-select">
-                                <option value="9">9ኛ ክፍል</option>
-                                <option value="10">10ኛ ክፍል</option>
-                                <option value="11">11ኛ ክፍል</option>
-                                <option value="12">12ኛ ክፍል</option>
+                                <option value="9">9ኛ</option><option value="10">10ኛ</option>
+                                <option value="11">11ኛ</option><option value="12">12ኛ</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">ፋይሉን ከስልክዎ ይምረጡ (PDF)</label>
+                            <label class="form-label">ፋይል</label>
                             <input type="file" id="doc-file" class="form-input" accept=".pdf, .doc, .docx" required>
                         </div>
-                        <button type="submit" class="primary-action-button"><i class="fa-solid fa-upload"></i> አትም (Publish)</button>
+                        <button type="submit" class="primary-action-button">አትም (Publish)</button>
                     </form>
                 </div>
-
-                <!-- Admin Messages -->
-                <div id="admin-tab-messages" class="admin-tab-content hidden-element">
-                    <div class="message-list" id="admin-inbox-list"></div>
-                </div>
-
-                <!-- Admin Broadcast -->
+                <!-- Messages -->
+                <div id="admin-tab-messages" class="admin-tab-content hidden-element" id="admin-inbox-list"></div>
+                <!-- Broadcast -->
                 <div id="admin-tab-broadcast" class="admin-tab-content hidden-element">
                     <form id="admin-broadcast-form" class="standard-form">
                         <div class="form-group">
-                            <label class="form-label">የማሳወቂያ ርዕስ</label>
+                            <label class="form-label">ርዕስ</label>
                             <input type="text" id="broadcast-title" class="form-input" required>
                         </div>
                         <div class="form-group">
                             <label class="form-label">መልእክቱ</label>
                             <textarea id="broadcast-message" class="form-textarea" rows="4" required></textarea>
                         </div>
-                        <button type="submit" class="primary-action-button"><i class="fa-solid fa-bullhorn"></i> ለሁሉም ላክ</button>
+                        <button type="submit" class="primary-action-button">ለሁሉም ላክ</button>
                     </form>
                 </div>
             </div>
         </section>
 
-        <!-- Bottom Navigation Bar -->
+        <!-- Floating Bottom Navigation Bar -->
         <nav class="bottom-navigation-bar">
             <button class="nav-button active-nav-item" onclick="appNavigation.switchTab('screen-dashboard')">
                 <i class="fa-solid fa-house"></i><span>ዋና ገጽ</span>
@@ -251,8 +231,7 @@
                 <i class="fa-solid fa-hands-praying"></i><span>ጸሎት</span>
             </button>
         </nav>
-
     </main>
     <script src="script.js"></script>
 </body>
-                                    </html>
+                                                         </html>
