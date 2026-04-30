@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#f9f6f0">
     <title>አባ ሙሴ ጸሊም የተማሪዎች ህብረት</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,7 +18,10 @@
 
         <!-- ዋና ማሳያ (Dashboard) -->
         <section id="screen-dashboard" class="app-screen active-screen" role="main">
+            
+            <!-- 🌟 የተስተካከለ ራስጌ (Header) 🌟 -->
             <header class="dashboard-header">
+                <!-- ፎቶ እና ስም በትክክል ጎን ለጎን -->
                 <div class="user-profile-section">
                     <div class="profile-image-container">
                         <i class="fa-solid fa-circle-user placeholder-avatar"></i>
@@ -30,26 +32,30 @@
                         <h1 class="user-full-name" id="display-user-name">እየጫነ ነው...</h1>
                     </div>
                 </div>
-                <button class="notification-trigger" onclick="appNavigation.openScreen('screen-notifications')">
-                    <i class="fa-regular fa-bell"></i>
-                    <span class="notification-badge" id="unread-notifications-count">0</span>
-                </button>
+                
+                <!-- ዳርክ ሞድ እና ማሳወቂያ -->
+                <div class="header-action-buttons">
+                    <button id="theme-toggle-btn" class="glass-btn action-btn">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    <button class="glass-btn action-btn notification-trigger" onclick="appNavigation.openScreen('screen-notifications')">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="notification-badge" id="unread-notifications-count">0</span>
+                    </button>
+                </div>
             </header>
 
-            <!-- 🌟 የተጨመቀ (Compact) ፕሪሚየም ካርድ 🌟 -->
             <article class="membership-card-container">
-                <div class="brand-card compact-card">
+                <div class="brand-card compact-card glossy-effect">
                     <div class="card-top-row">
                         <div class="organization-branding">
                             <i class="fa-solid fa-church brand-icon"></i> <span>አባ ሙሴ ጸሊም</span>
                         </div>
                         <div class="verification-icon"><i class="fa-solid fa-qrcode"></i></div>
                     </div>
-                    
                     <div class="card-middle-row">
                         <h2 class="member-name-display" id="card-member-name">ስም እየመጣ ነው...</h2>
                     </div>
-
                     <div class="card-bottom-row">
                         <div class="member-id-display">መለያ: <span id="card-member-id">000000</span></div>
                         <div class="active-status"><i class="fa-solid fa-circle-check"></i> ንቁ</div>
@@ -59,7 +65,7 @@
 
             <!-- Admin Access -->
             <div id="admin-access-container" class="hidden-element" style="padding: 0 20px; margin-bottom: 15px;">
-                <button class="admin-panel-btn" onclick="appNavigation.openScreen('screen-admin')">
+                <button class="admin-panel-btn glossy-effect" onclick="appNavigation.openScreen('screen-admin')">
                     <i class="fa-solid fa-user-shield"></i> ወደ አስተዳዳሪ (Admin) ገጽ ግባ
                 </button>
             </div>
@@ -67,19 +73,19 @@
             <nav class="services-grid-navigation">
                 <h3 class="section-heading">አገልግሎቶች</h3>
                 <div class="grid-layout">
-                    <button class="grid-card-item" onclick="appNavigation.openScreen('screen-library')">
+                    <button class="grid-card-item glossy-effect" onclick="appNavigation.openScreen('screen-library')">
                         <div class="card-icon-wrapper theme-orange"><i class="fa-solid fa-book-open-reader"></i></div>
                         <span class="card-title">ትምህርት መርጃ</span>
                     </button>
-                    <button class="grid-card-item" onclick="appNavigation.openScreen('screen-prayer')">
+                    <button class="grid-card-item glossy-effect" onclick="appNavigation.openScreen('screen-prayer')">
                         <div class="card-icon-wrapper theme-base"><i class="fa-solid fa-hands-praying"></i></div>
                         <span class="card-title">የጸሎት ሳጥን</span>
                     </button>
-                    <button class="grid-card-item" onclick="appNavigation.openScreen('screen-tutoring')">
+                    <button class="grid-card-item glossy-effect" onclick="appNavigation.openScreen('screen-tutoring')">
                         <div class="card-icon-wrapper theme-orange"><i class="fa-solid fa-chalkboard-user"></i></div>
                         <span class="card-title">ቱቶሪያል</span>
                     </button>
-                    <button class="grid-card-item" onclick="tg.showAlert('በቅርቡ የሚከፈት ይሆናል!')">
+                    <button class="grid-card-item glossy-effect" onclick="tg.showAlert('በቅርቡ የሚከፈት ይሆናል!')">
                         <div class="card-icon-wrapper theme-base"><i class="fa-solid fa-ranking-star"></i></div>
                         <span class="card-title">ደረጃ ሰንጠረዥ</span>
                     </button>
@@ -88,18 +94,19 @@
             <div class="bottom-spacing"></div>
         </section>
 
-        <!-- ትምህርት መርጃ ማዕከል -->
+        <!-- ትምህርት ማዕከል -->
         <section id="screen-library" class="app-screen hidden-screen">
             <header class="sub-screen-header">
-                <button class="back-navigation" onclick="appNavigation.goBack()"><i class="fa-solid fa-arrow-left"></i></button>
+                <button class="glass-btn action-btn back-navigation" onclick="appNavigation.goBack()"><i class="fa-solid fa-arrow-left"></i></button>
                 <h2 class="sub-screen-title">የትምህርት መርጃ</h2>
+                <div style="width: 44px;"></div> <!-- ክፍተት ለማስተካከል -->
             </header>
             <div class="screen-content-scrollable">
                 <div class="filter-tabs-container">
-                    <button class="filter-tab active-tab">9ኛ</button>
-                    <button class="filter-tab">10ኛ</button>
-                    <button class="filter-tab">11ኛ</button>
-                    <button class="filter-tab">12ኛ</button>
+                    <button class="filter-tab active-tab glossy-effect">9ኛ</button>
+                    <button class="filter-tab glossy-effect">10ኛ</button>
+                    <button class="filter-tab glossy-effect">11ኛ</button>
+                    <button class="filter-tab glossy-effect">12ኛ</button>
                 </div>
                 <div class="document-list-container" id="student-docs-list"></div>
             </div>
@@ -108,15 +115,16 @@
         <!-- የጸሎት ሳጥን -->
         <section id="screen-prayer" class="app-screen hidden-screen">
             <header class="sub-screen-header">
-                <button class="back-navigation" onclick="appNavigation.goBack()"><i class="fa-solid fa-arrow-left"></i></button>
+                <button class="glass-btn action-btn back-navigation" onclick="appNavigation.goBack()"><i class="fa-solid fa-arrow-left"></i></button>
                 <h2 class="sub-screen-title">የምስጢር ሳጥን</h2>
+                <div style="width: 44px;"></div>
             </header>
             <div class="screen-content-scrollable">
-                <div class="confidentiality-notice">
+                <div class="confidentiality-notice glossy-effect">
                     <i class="fa-solid fa-shield-halved notice-icon"></i>
                     <p class="notice-text">ይህ መረጃ በሚስጥር የተጠበቀ ነው። የሚደርሰው ለአስተዳዳሪዎች ብቻ ነው።</p>
                 </div>
-                <form id="prayer-request-form" class="standard-form">
+                <form id="prayer-request-form" class="standard-form glossy-effect">
                     <div class="form-group">
                         <label class="form-label">የመልእክቱ አይነት</label>
                         <select id="message-type" class="form-select">
@@ -128,7 +136,7 @@
                         <label class="form-label">መልእክት</label>
                         <textarea id="secret-message" class="form-textarea" rows="5" placeholder="የልብዎን ሀሳብ ያካፍሉን..." required></textarea>
                     </div>
-                    <button type="submit" class="primary-action-button">ላክ</button>
+                    <button type="submit" class="primary-action-button glossy-effect">ላክ</button>
                 </form>
             </div>
         </section>
@@ -136,11 +144,12 @@
         <!-- ቱቶሪያል -->
         <section id="screen-tutoring" class="app-screen hidden-screen">
             <header class="sub-screen-header">
-                <button class="back-navigation" onclick="appNavigation.goBack()"><i class="fa-solid fa-arrow-left"></i></button>
+                <button class="glass-btn action-btn back-navigation" onclick="appNavigation.goBack()"><i class="fa-solid fa-arrow-left"></i></button>
                 <h2 class="sub-screen-title">ቱቶሪያል መጠየቂያ</h2>
+                <div style="width: 44px;"></div>
             </header>
             <div class="screen-content-scrollable">
-                <form id="tutoring-request-form" class="standard-form">
+                <form id="tutoring-request-form" class="standard-form glossy-effect">
                     <div class="form-group">
                         <label class="form-label">የትምህርት አይነት</label>
                         <select id="subject-select" class="form-select" required>
@@ -153,7 +162,7 @@
                         <label class="form-label">የሚከብድዎት ርዕስ</label>
                         <input type="text" id="specific-topic" class="form-input" required>
                     </div>
-                    <button type="submit" class="primary-action-button">አስገባ</button>
+                    <button type="submit" class="primary-action-button glossy-effect">አስገባ</button>
                 </form>
             </div>
         </section>
@@ -161,8 +170,9 @@
         <!-- ማሳወቂያዎች -->
         <section id="screen-notifications" class="app-screen hidden-screen">
             <header class="sub-screen-header">
-                <button class="back-navigation" onclick="appNavigation.goBack()"><i class="fa-solid fa-arrow-left"></i></button>
+                <button class="glass-btn action-btn back-navigation" onclick="appNavigation.goBack()"><i class="fa-solid fa-arrow-left"></i></button>
                 <h2 class="sub-screen-title">ማሳወቂያዎች</h2>
+                <div style="width: 44px;"></div>
             </header>
             <div class="screen-content-scrollable" id="user-notifications-list"></div>
         </section>
@@ -170,18 +180,19 @@
         <!-- Admin Panel -->
         <section id="screen-admin" class="app-screen hidden-screen">
             <header class="sub-screen-header">
-                <button class="back-navigation" onclick="appNavigation.goBack()"><i class="fa-solid fa-arrow-left"></i></button>
+                <button class="glass-btn action-btn back-navigation" onclick="appNavigation.goBack()"><i class="fa-solid fa-arrow-left"></i></button>
                 <h2 class="sub-screen-title">አስተዳዳሪ ክፍል</h2>
+                <div style="width: 44px;"></div>
             </header>
             <div class="screen-content-scrollable">
-                <div class="admin-tabs">
+                <div class="admin-tabs glossy-effect">
                     <button class="admin-tab active-tab" onclick="adminPanel.switchTab('upload')">ጫን</button>
                     <button class="admin-tab" onclick="adminPanel.switchTab('messages')">መልእክቶች</button>
                     <button class="admin-tab" onclick="adminPanel.switchTab('broadcast')">ማሳወቂያ</button>
                 </div>
-                <!-- Upload Form -->
+                
                 <div id="admin-tab-upload" class="admin-tab-content active-content">
-                    <form id="admin-upload-form" class="standard-form">
+                    <form id="admin-upload-form" class="standard-form glossy-effect">
                         <div class="form-group">
                             <label class="form-label">የፋይሉ ርዕስ</label>
                             <input type="text" id="doc-title" class="form-input" required>
@@ -197,14 +208,14 @@
                             <label class="form-label">ፋይል</label>
                             <input type="file" id="doc-file" class="form-input" accept=".pdf, .doc, .docx" required>
                         </div>
-                        <button type="submit" class="primary-action-button">አትም (Publish)</button>
+                        <button type="submit" class="primary-action-button glossy-effect">አትም (Publish)</button>
                     </form>
                 </div>
-                <!-- Messages -->
+                
                 <div id="admin-tab-messages" class="admin-tab-content hidden-element" id="admin-inbox-list"></div>
-                <!-- Broadcast -->
+                
                 <div id="admin-tab-broadcast" class="admin-tab-content hidden-element">
-                    <form id="admin-broadcast-form" class="standard-form">
+                    <form id="admin-broadcast-form" class="standard-form glossy-effect">
                         <div class="form-group">
                             <label class="form-label">ርዕስ</label>
                             <input type="text" id="broadcast-title" class="form-input" required>
@@ -213,14 +224,14 @@
                             <label class="form-label">መልእክቱ</label>
                             <textarea id="broadcast-message" class="form-textarea" rows="4" required></textarea>
                         </div>
-                        <button type="submit" class="primary-action-button">ለሁሉም ላክ</button>
+                        <button type="submit" class="primary-action-button glossy-effect">ለሁሉም ላክ</button>
                     </form>
                 </div>
             </div>
         </section>
 
-        <!-- Floating Bottom Navigation Bar -->
-        <nav class="bottom-navigation-bar">
+        <!-- Floating Bottom Navigation -->
+        <nav class="bottom-navigation-bar glossy-effect">
             <button class="nav-button active-nav-item" onclick="appNavigation.switchTab('screen-dashboard')">
                 <i class="fa-solid fa-house"></i><span>ዋና ገጽ</span>
             </button>
@@ -234,4 +245,4 @@
     </main>
     <script src="script.js"></script>
 </body>
-                                                         </html>
+</html>
