@@ -1,38 +1,38 @@
 /* ==========================================================================
-   የአባ ሙሴ ጸሊም መተግበሪያ አጠቃላይ የዲዛይን ማዕቀፍ (Master Stylesheet)
+   የአባ ሙሴ ጸሊም መተግበሪያ - የመጨረሻ እና የተስተካከለ የዲዛይን ፋይል (CSS)
    ========================================================================== */
 
-/* 1. መሠረታዊ ተለዋዋጮች (CSS Variables) - ለቀለም፣ ለቅርጽ እና ለጥላ */
+/* --------------------------------------------------------------------------
+   1. መሠረታዊ ተለዋዋጮች (CSS Variables) - ከሎጎው የተወሰዱ ቀለማት
+   -------------------------------------------------------------------------- */
 :root {
-    /* ዋና ቀለማት (Primary Colors) */
-    --primary-color: #1a5f7a;
-    --primary-dark: #124356;
-    --primary-light: #257b9e;
+    /* ዋና ቀለማት (Primary Colors - Blacks) */
+    --primary-color: #1a1a1a;
+    --primary-dark: #000000;
+    --primary-light: #333333;
     
-    /* አጋዥ ቀለማት (Accent Colors) */
-    --accent-gold: #c5a059;
-    --accent-gold-dark: #a38242;
+    /* አጋዥ ቀለማት (Accent Colors - Oranges) */
+    --accent-gold: #ff8c00; 
+    --accent-gold-dark: #cc7000;
     
-    /* የጀርባ ቀለማት (Background Colors) */
-    --bg-main: #f4f7f6;
+    /* የጀርባ ቀለማት (Background Colors - Beige/Cream) */
+    --bg-main: #f5f3e9; 
     --bg-card: #ffffff;
-    --bg-input: #f8fafb;
+    --bg-input: #fdfcf8;
     
     /* የጽሁፍ ቀለማት (Text Colors) */
-    --text-primary: #2c3e50;
-    --text-secondary: #7f8c8d;
+    --text-primary: #1a1a1a;
+    --text-secondary: #555555;
     --text-light: #ffffff;
     
-    /* የማሳወቂያ እና ሁኔታ ቀለማት (Status Colors) */
+    /* የማሳወቂያ ቀለማት (Status Colors) */
     --status-success: #27ae60;
-    --status-warning: #f39c12;
     --status-danger: #e74c3c;
-    --status-info: #3498db;
     
     /* ጥላዎች (Shadows) */
     --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
     --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-    --shadow-lg: 0 12px 24px rgba(26, 95, 122, 0.15);
+    --shadow-lg: 0 12px 24px rgba(255, 140, 0, 0.15); /* ብርቱካናማ ጥላ ለመታወቂያው */
     
     /* ጠርዞች (Border Radius) */
     --radius-sm: 8px;
@@ -42,10 +42,11 @@
     
     /* መለኪያዎች (Dimensions) */
     --bottom-nav-height: 70px;
-    --header-height: 80px;
 }
 
-/* 2. አጠቃላይ ማስተካከያ (Reset & Base Styles) */
+/* --------------------------------------------------------------------------
+   2. አጠቃላይ ማስተካከያ (Reset & Base Styles)
+   -------------------------------------------------------------------------- */
 * {
     margin: 0;
     padding: 0;
@@ -68,7 +69,9 @@ body {
     background: transparent;
 }
 
-/* 3. የመተግበሪያው መያዣ (Application Wrapper) */
+/* --------------------------------------------------------------------------
+   3. የመተግበሪያው መያዣ (Application Wrapper & Screens)
+   -------------------------------------------------------------------------- */
 .app-container {
     width: 100%;
     max-width: 480px; /* ለኮምፒውተር ሲከፈት እንዳይሰፋ */
@@ -81,7 +84,6 @@ body {
     overflow: hidden;
 }
 
-/* 4. የስክሪን አያያዝ (Screen Management) */
 .app-screen {
     position: absolute;
     top: 0;
@@ -107,7 +109,9 @@ body {
     z-index: 0;
 }
 
-/* 5. ዋና ማሳያ ራስጌ (Dashboard Header) */
+/* --------------------------------------------------------------------------
+   4. ዋና ማሳያ ራስጌ (Dashboard Header)
+   -------------------------------------------------------------------------- */
 .dashboard-header {
     display: flex;
     justify-content: space-between;
@@ -130,12 +134,12 @@ body {
     height: 48px;
     border-radius: var(--radius-round);
     background-color: var(--primary-light);
-    color: var(--text-light);
+    color: var(--accent-gold);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 24px;
-    overflow: hidden;
+    box-shadow: var(--shadow-sm);
     border: 2px solid var(--accent-gold);
 }
 
@@ -147,66 +151,34 @@ body {
 .greeting-time {
     font-size: 12px;
     color: var(--text-secondary);
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .user-full-name {
-    font-size: 16px;
-    font-weight: 700;
+    font-size: 18px;
+    font-weight: 800;
     color: var(--text-primary);
     margin: 0;
 }
 
-.notification-trigger {
-    background: var(--bg-card);
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: var(--radius-round);
-    font-size: 18px;
-    color: var(--primary-color);
-    position: relative;
-    box-shadow: var(--shadow-sm);
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.notification-trigger:active {
-    transform: scale(0.9);
-}
-
-.notification-badge {
-    position: absolute;
-    top: -2px;
-    right: -2px;
-    background-color: var(--status-danger);
-    color: var(--text-light);
-    font-size: 10px;
-    font-weight: bold;
-    width: 18px;
-    height: 18px;
-    border-radius: var(--radius-round);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid var(--bg-main);
-}
-
-/* 6. ዲጂታል መታወቂያ ካርድ (Glassmorphism ID Card) */
+/* --------------------------------------------------------------------------
+   5. የዲጂታል መታወቂያ ካርድ (Glassmorphism ID Card)
+   -------------------------------------------------------------------------- */
 .membership-card-container {
     padding: 0 24px;
-    margin-bottom: 24px;
+    margin-bottom: 30px;
     perspective: 1000px;
 }
 
 .glass-morphism-card {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
     border-radius: var(--radius-lg);
     padding: 24px;
     color: var(--text-light);
     box-shadow: var(--shadow-lg);
     position: relative;
     overflow: hidden;
+    border-bottom: 4px solid var(--accent-gold); /* የካርዱ ታችኛው መስመር */
 }
 
 /* የካርዱ ጌጥ (Decorative background circles) */
@@ -217,18 +189,7 @@ body {
     right: -50px;
     width: 150px;
     height: 150px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-}
-
-.glass-morphism-card::after {
-    content: '';
-    position: absolute;
-    bottom: -30px;
-    left: -30px;
-    width: 100px;
-    height: 100px;
-    background: rgba(197, 160, 89, 0.2);
+    background: rgba(255, 140, 0, 0.15); /* ብርቱካናማ ብርሃን */
     border-radius: 50%;
 }
 
@@ -245,13 +206,14 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 800;
     color: var(--accent-gold);
 }
 
 .verification-icon {
     font-size: 24px;
+    color: var(--text-light);
     opacity: 0.8;
 }
 
@@ -264,101 +226,48 @@ body {
 .member-name-display {
     font-size: 22px;
     font-weight: 800;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
     letter-spacing: 0.5px;
 }
 
 .member-id-display {
     font-size: 13px;
     opacity: 0.9;
-    letter-spacing: 2px;
     font-family: monospace;
+    color: #cccccc;
 }
 
 .card-footer-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 700;
     position: relative;
     z-index: 2;
 }
 
 .membership-status.active-status {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 6px 12px;
-    border-radius: var(--radius-md);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    backdrop-filter: blur(5px);
-}
-
-.membership-tier {
-    display: flex;
-    align-items: center;
-    gap: 4px;
+    background: rgba(255, 140, 0, 0.2);
     color: var(--accent-gold);
-}
-
-/* 7. ፈጣን መረጃዎች (Quick Stats Bar) */
-.quick-stats-bar {
-    display: flex;
-    background: var(--bg-card);
-    margin: 0 24px 24px 24px;
+    padding: 6px 14px;
     border-radius: var(--radius-md);
-    padding: 16px;
-    box-shadow: var(--shadow-sm);
-    justify-content: space-around;
-    align-items: center;
-}
-
-.stat-item {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
+    border: 1px solid rgba(255, 140, 0, 0.3);
 }
 
-.stat-icon {
-    font-size: 20px;
-    color: var(--accent-gold);
-    background: rgba(197, 160, 89, 0.1);
-    padding: 10px;
-    border-radius: var(--radius-md);
-}
-
-.stat-text {
-    display: flex;
-    flex-direction: column;
-}
-
-.stat-value {
-    font-size: 18px;
-    font-weight: 800;
-    color: var(--text-primary);
-}
-
-.stat-label {
-    font-size: 11px;
-    color: var(--text-secondary);
-    font-weight: 500;
-}
-
-.stat-divider {
-    width: 1px;
-    height: 30px;
-    background-color: #e0e0e0;
-}
-
-/* 8. ዋና አገልግሎቶች (Grid Navigation) */
+/* --------------------------------------------------------------------------
+   6. ዋና አገልግሎቶች (Grid Navigation)
+   -------------------------------------------------------------------------- */
 .services-grid-navigation {
     padding: 0 24px;
 }
 
 .section-heading {
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 800;
     margin-bottom: 16px;
     color: var(--text-primary);
 }
@@ -371,7 +280,7 @@ body {
 
 .grid-card-item {
     background: var(--bg-card);
-    border: none;
+    border: 1px solid rgba(0,0,0,0.05);
     border-radius: var(--radius-md);
     padding: 20px 16px;
     display: flex;
@@ -384,8 +293,9 @@ body {
 }
 
 .grid-card-item:active {
-    transform: translateY(2px);
+    transform: translateY(3px);
     box-shadow: none;
+    border-color: var(--accent-gold);
 }
 
 .card-icon-wrapper {
@@ -396,34 +306,35 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 22px;
+    background: rgba(255, 140, 0, 0.1);
+    color: var(--accent-gold);
+    transition: all 0.3s ease;
 }
 
-/* የአገልግሎት አይኮን ቀለማት */
-.theme-blue { background: rgba(52, 152, 219, 0.1); color: #3498db; }
-.theme-gold { background: rgba(197, 160, 89, 0.1); color: var(--accent-gold); }
-.theme-purple { background: rgba(155, 89, 182, 0.1); color: #9b59b6; }
-.theme-green { background: rgba(46, 204, 113, 0.1); color: #2ecc71; }
-.theme-orange { background: rgba(230, 126, 34, 0.1); color: #e67e22; }
-.theme-teal { background: rgba(26, 188, 156, 0.1); color: #1abc9c; }
+.grid-card-item:active .card-icon-wrapper {
+    background: var(--accent-gold);
+    color: var(--text-light);
+}
 
 .card-title {
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-primary);
-    font-family: inherit;
 }
 
-/* 9. ንዑስ ገጾች አጠቃላይ (Sub-screens Common Styles) */
+/* --------------------------------------------------------------------------
+   7. የውስጥ ገጾች ማስተካከያ (Sub-screens Common Styles)
+   -------------------------------------------------------------------------- */
 .sub-screen-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 24px;
-    background-color: var(--bg-card);
-    box-shadow: var(--shadow-sm);
+    background-color: var(--bg-main);
     position: sticky;
     top: 0;
     z-index: 20;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 .back-navigation {
@@ -441,7 +352,7 @@ body {
 
 .sub-screen-title {
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 800;
     color: var(--text-primary);
     flex-grow: 1;
     text-align: center;
@@ -455,19 +366,16 @@ body {
     padding: 24px;
 }
 
-.centered-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* 10. ቅጾች (Forms & Inputs) */
+/* --------------------------------------------------------------------------
+   8. ቅጾች (Forms & Inputs)
+   -------------------------------------------------------------------------- */
 .standard-form {
     width: 100%;
     background: var(--bg-card);
     padding: 24px;
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(0,0,0,0.05);
 }
 
 .form-group {
@@ -477,7 +385,7 @@ body {
 .form-label {
     display: block;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-secondary);
     margin-bottom: 8px;
 }
@@ -487,227 +395,74 @@ body {
 .form-textarea {
     width: 100%;
     padding: 14px 16px;
-    border: 1px solid #e0e0e0;
+    border: 2px solid #e0e0e0;
     border-radius: var(--radius-sm);
     background-color: var(--bg-input);
     font-family: inherit;
     font-size: 14px;
     color: var(--text-primary);
-    transition: border-color 0.3s;
+    transition: all 0.3s ease;
 }
 
 .form-input:focus,
 .form-select:focus,
 .form-textarea:focus {
     outline: none;
-    border-color: var(--primary-color);
+    border-color: var(--accent-gold);
     background-color: var(--bg-card);
+    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
 }
 
 .form-textarea {
     resize: vertical;
-    min-height: 100px;
+    min-height: 120px;
 }
 
 .primary-action-button {
     width: 100%;
     background-color: var(--primary-color);
-    color: var(--text-light);
-    border: none;
+    color: var(--accent-gold);
+    border: 2px solid var(--primary-color);
     padding: 16px;
     border-radius: var(--radius-sm);
     font-size: 15px;
-    font-weight: 700;
+    font-weight: 800;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
     cursor: pointer;
     box-shadow: var(--shadow-md);
-    transition: background-color 0.3s;
+    transition: all 0.3s;
 }
 
 .primary-action-button:active {
-    background-color: var(--primary-dark);
-    transform: translateY(1px);
-}
-
-/* 11. መረጃ ሰጪ ባነሮች (Banners & Notices) */
-.confidentiality-notice, .instruction-banner {
-    display: flex;
-    gap: 16px;
-    background-color: rgba(197, 160, 89, 0.1);
-    padding: 16px;
-    border-radius: var(--radius-md);
-    border-left: 4px solid var(--accent-gold);
-    margin-bottom: 24px;
-    width: 100%;
-}
-
-.notice-icon {
-    font-size: 24px;
-    color: var(--accent-gold);
-}
-
-.notice-text, .instruction-banner p {
-    font-size: 12px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-}
-
-/* 12. የትምህርት መርጃ ማዕከል አካላት (Library Components) */
-.search-bar-container {
-    position: relative;
-    margin-bottom: 20px;
-}
-
-.search-icon {
-    position: absolute;
-    left: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-secondary);
-}
-
-.search-input {
-    width: 100%;
-    padding: 14px 16px 14px 44px;
-    border: none;
-    border-radius: var(--radius-lg);
-    background-color: var(--bg-card);
-    box-shadow: var(--shadow-sm);
-    font-family: inherit;
-}
-
-.filter-tabs-container {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
-
-.filter-tab {
-    padding: 8px 16px;
-    border: 1px solid #e0e0e0;
-    border-radius: 20px;
-    background: var(--bg-card);
-    color: var(--text-secondary);
-    font-weight: 600;
-    font-size: 12px;
-    white-space: nowrap;
-}
-
-.active-tab {
-    background: var(--primary-color);
-    color: var(--text-light);
-    border-color: var(--primary-color);
-}
-
-.list-heading {
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 16px;
-    color: var(--text-primary);
-}
-
-.document-item {
-    display: flex;
-    align-items: center;
-    background: var(--bg-card);
-    padding: 16px;
-    border-radius: var(--radius-md);
-    margin-bottom: 12px;
-    box-shadow: var(--shadow-sm);
-}
-
-.document-icon {
-    font-size: 28px;
-    color: #e74c3c;
-    margin-right: 16px;
-}
-
-.document-details {
-    flex-grow: 1;
-}
-
-.document-title {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 4px;
-}
-
-.document-meta {
-    font-size: 11px;
-    color: var(--text-secondary);
-}
-
-.download-button {
-    background: rgba(26, 95, 122, 0.1);
+    background-color: var(--accent-gold);
     color: var(--primary-color);
-    border: none;
-    width: 36px;
-    height: 36px;
-    border-radius: var(--radius-round);
+    border-color: var(--accent-gold);
+    transform: translateY(2px);
+}
+
+/* --------------------------------------------------------------------------
+   9. የአስተዳዳሪ ክፍል ማስተካከያ (Admin Panel Styles)
+   -------------------------------------------------------------------------- */
+.admin-card {
+    border-left: 4px solid var(--status-danger);
+}
+
+.admin-header {
+    color: var(--status-danger);
+    font-weight: 800;
+    margin-bottom: 15px;
+    font-size: 16px;
     display: flex;
-    justify-content: center;
     align-items: center;
+    gap: 8px;
 }
 
-/* 13. ማሳወቂያዎች (Notifications List) */
-.notification-item {
-    display: flex;
-    gap: 16px;
-    background: var(--bg-card);
-    padding: 16px;
-    border-radius: var(--radius-md);
-    margin-bottom: 12px;
-    box-shadow: var(--shadow-sm);
-}
-
-.unread-notification {
-    border-left: 4px solid var(--primary-color);
-}
-
-.notification-icon-wrapper {
-    width: 40px;
-    height: 40px;
-    border-radius: var(--radius-round);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 18px;
-    flex-shrink: 0;
-}
-
-.info-type { background: rgba(243, 156, 18, 0.1); color: var(--status-warning); }
-.success-type { background: rgba(39, 174, 96, 0.1); color: var(--status-success); }
-
-.notification-content {
-    display: flex;
-    flex-direction: column;
-}
-
-.notification-heading {
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 4px;
-}
-
-.notification-detail {
-    font-size: 12px;
-    color: var(--text-secondary);
-    margin-bottom: 8px;
-    line-height: 1.4;
-}
-
-.notification-time {
-    font-size: 10px;
-    color: #a0a0a0;
-    font-weight: 500;
-}
-
-/* 14. የታችኛው ማውጫ (Bottom Navigation) */
+/* --------------------------------------------------------------------------
+   10. የታችኛው ማውጫ (Bottom Navigation Bar)
+   -------------------------------------------------------------------------- */
 .bottom-navigation-bar {
     position: fixed;
     bottom: 0;
@@ -722,8 +477,7 @@ body {
     align-items: center;
     box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
     z-index: 100;
-    border-top-left-radius: var(--radius-lg);
-    border-top-right-radius: var(--radius-lg);
+    border-top: 1px solid rgba(0,0,0,0.05);
 }
 
 .nav-button {
@@ -736,41 +490,38 @@ body {
     color: var(--text-secondary);
     width: 60px;
     cursor: pointer;
-    transition: color 0.3s;
+    transition: all 0.3s ease;
 }
 
 .nav-button i {
     font-size: 20px;
-    margin-bottom: 2px;
-    transition: transform 0.3s;
+    transition: transform 0.3s ease;
 }
 
 .nav-button span {
     font-size: 10px;
-    font-weight: 600;
+    font-weight: 700;
     font-family: inherit;
 }
 
 .active-nav-item {
-    color: var(--primary-color);
+    color: var(--accent-gold);
 }
 
 .active-nav-item i {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    color: var(--primary-color);
 }
 
-/* የሞባይል ማያ ገጽ ማስተካከያ (Responsive Adjustments) */
-@media (max-width: 380px) {
-    .glass-morphism-card {
-        padding: 16px;
-    }
-    .member-name-display {
-        font-size: 18px;
-    }
-    .grid-layout {
-        gap: 12px;
-    }
-    .grid-card-item {
-        padding: 16px 12px;
-    }
-  }
+/* --------------------------------------------------------------------------
+   11. የሞባይል ማያ ገጽ ማስተካከያ (Responsive Adjustments)
+   -------------------------------------------------------------------------- */
+@media (max-width: 360px) {
+    .glass-morphism-card { padding: 20px 16px; }
+    .member-name-display { font-size: 18px; }
+    .grid-layout { gap: 12px; }
+    .grid-card-item { padding: 16px 12px; }
+    .dashboard-header { padding: 16px 20px; }
+    .membership-card-container { padding: 0 20px; }
+    .services-grid-navigation { padding: 0 20px; }
+       }
