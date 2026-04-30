@@ -7,7 +7,7 @@ tg.expand();
 tg.ready();
 
 // ⚠️ የራስህን የቴሌግራም ID እዚህ አስገባ
-const ADMIN_TELEGRAM_IDS =[123456789, 987654321]; 
+const ADMIN_TELEGRAM_IDS =[7237816050, 987654321]; 
 
 // ==========================================
 // 🌟 የ Light/Dark ማብሪያ እና ማጥፊያ (Theme Engine)
