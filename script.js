@@ -1,22 +1,44 @@
 /* ==========================================================================
-   የአባ ሙሴ ጸሊም - JS Logic (Theme Aware)
+   የአባ ሙሴ ጸሊም - JS Logic (Theme Toggle Included)
    ========================================================================== */
 
 const tg = window.Telegram.WebApp;
 tg.expand();
 tg.ready();
 
-// የቴሌግራምን ሄደር (Header) እና ባክግራውንድ ካለው ቴም ጋር እንዲመሳሰል ማድረግ
-function applyThemeParams() {
-    tg.setHeaderColor(tg.themeParams.bg_color || '#f7f4ec');
-    tg.setBackgroundColor(tg.themeParams.bg_color || '#f7f4ec');
-}
-tg.onEvent('themeChanged', applyThemeParams);
-applyThemeParams();
-
 // ⚠️ የራስህን የቴሌግራም ID እዚህ አስገባ
 const ADMIN_TELEGRAM_IDS =[123456789, 987654321]; 
 
+// ==========================================
+// 🌟 የ Light/Dark ማብሪያ እና ማጥፊያ (Theme Engine)
+// ==========================================
+const themeToggleBtn = document.getElementById('theme-toggle-btn');
+
+function initTheme() {
+    // ከ LocalStorage ወይም ቴሌግራም የተመረጠውን ማንበብ
+    const savedTheme = localStorage.getItem('abba_muse_theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+        themeToggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+    } else {
+        document.body.classList.remove('dark-theme');
+        themeToggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+    }
+}
+
+themeToggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-theme');
+    const isDark = document.body.classList.contains('dark-theme');
+    
+    // አይኮኑን መቀየር (ከጨረቃ ወደ ፀሐይ)
+    themeToggleBtn.innerHTML = isDark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+    
+    // ምርጫውን Save ማድረግ
+    localStorage.setItem('abba_muse_theme', isDark ? 'dark' : 'light');
+});
+
+
+// Local Storage DB
 const AppDatabase = {
     getMessages: () => JSON.parse(localStorage.getItem('abba_muse_msgs') || '[]'),
     saveMessage: (msg) => { const msgs = AppDatabase.getMessages(); msgs.push(msg); localStorage.setItem('abba_muse_msgs', JSON.stringify(msgs)); },
@@ -50,7 +72,7 @@ const appNavigation = {
         }
     },
     switchTab: function(screenId) {
-        this.history = ['screen-dashboard'];
+        this.history =['screen-dashboard'];
         this.openScreen(screenId);
         document.querySelectorAll('.nav-button').forEach(b => b.classList.remove('active-nav-item'));
         if(event && event.currentTarget) event.currentTarget.classList.add('active-nav-item');
@@ -58,6 +80,8 @@ const appNavigation = {
 };
 
 function initializeApp() {
+    initTheme(); // ቴሙን አስነሳ
+    
     const user = tg.initDataUnsafe?.user || { id: 000000, photo_url: "" };
     const fullName = getFullUserName();
 
@@ -95,7 +119,7 @@ const adminPanel = {
         const container = document.getElementById('admin-inbox-list');
         if(msgs.length === 0) { container.innerHTML = '<div style="text-align:center; padding:20px; opacity:0.5;">ምንም አዲስ መልእክት የለም</div>'; return; }
         container.innerHTML = msgs.reverse().map(m => `
-            <div style="background: var(--glass-bg); padding: 15px; margin-bottom: 10px; border-radius: 12px; border-left: 3px solid var(--accent-primary);">
+            <div class="glossy-effect" style="padding: 15px; margin-bottom: 10px; border-radius: 12px; border-left: 3px solid var(--brand-orange);">
                 <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
                     <strong style="font-size:13px;">${m.sender} <span style="opacity:0.6; font-size:10px;">(${m.type})</span></strong>
                     <small style="opacity:0.5;">${m.date}</small>
@@ -111,13 +135,13 @@ function loadDocuments() {
     const container = document.getElementById('student-docs-list');
     if(docs.length === 0) { container.innerHTML = "<p style='text-align:center; opacity:0.5; margin-top:20px;'>ፋይል አልተጫነም!</p>"; return; }
     container.innerHTML = docs.reverse().map(d => `
-        <article class="document-item">
+        <article class="document-item glossy-effect">
             <div class="document-icon"><i class="fa-solid fa-file-pdf"></i></div>
             <div style="flex:1;">
-                <h4 style="font-size:14px; font-weight:700;">${d.title}</h4>
+                <h4 style="font-size:14px; font-weight:800;">${d.title}</h4>
                 <span style="font-size:11px; opacity:0.6;">${d.grade}ኛ ክፍል • ከቴሌግራም አውርድ</span>
             </div>
-            <button onclick="tg.showAlert('ፋይሉን ከቴሌግራም ቻናላችን ያውርዱ!')" style="background:transparent; border:none; color:var(--accent-primary); font-size:18px;">
+            <button onclick="tg.showAlert('ፋይሉን ከቴሌግራም ቻናላችን ያውርዱ!')" style="background:transparent; border:none; color:var(--brand-orange); font-size:20px;">
                 <i class="fa-solid fa-download"></i>
             </button>
         </article>
@@ -130,10 +154,10 @@ function loadNotifications() {
     const container = document.getElementById('user-notifications-list');
     if(notifs.length === 0) { container.innerHTML = "<p style='text-align:center; opacity:0.5; padding:20px;'>ምንም ማሳወቂያ የለም</p>"; return; }
     container.innerHTML = notifs.reverse().map(n => `
-        <div style="background: var(--glass-bg); padding: 15px; margin-bottom: 10px; border-radius: 16px; border: 1px solid var(--glass-border);">
-            <h4 style="font-size:14px; margin-bottom:4px;">${n.title}</h4>
-            <p style="font-size:12px; opacity:0.8;">${n.message}</p>
-            <small style="opacity:0.5; font-size:10px;">${n.date}</small>
+        <div class="glossy-effect" style="padding: 15px; margin-bottom: 10px; border-radius: 16px;">
+            <h4 style="font-size:14px; font-weight:800; margin-bottom:4px;">${n.title}</h4>
+            <p style="font-size:13px; opacity:0.8;">${n.message}</p>
+            <small style="opacity:0.5; font-size:10px; display:block; margin-top:5px;">${n.date}</small>
         </div>
     `).join('');
 }
