@@ -1,0 +1,16 @@
+body { font-family: sans-serif; background-color: #f0f2f5; margin: 0; display: flex; justify-content: center; color: #333; }
+#app { width: 100%; max-width: 450px; background-color: #f0f2f5; min-height: 100vh; }
+header { background: linear-gradient(135deg, #1a5f7a, #c5a059); color: white; text-align: center; padding: 20px; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; }
+header img { border-radius: 50%; border: 3px solid white; margin-bottom: 10px; }
+.id-card { background: white; margin: -20px 20px 20px 20px; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); overflow: hidden; border: 1px solid #ddd; }
+.id-header { background-color: #c5a059; color: white; text-align: center; padding: 10px; font-weight: bold; }
+.id-body { display: flex; align-items: center; padding: 20px; }
+.user-photo { border-radius: 10px; margin-right: 20px; border: 2px solid #c5a059; }
+.user-info h2 { margin: 0; font-size: 1.1em; }
+.status-badge { background: #e8f5e9; color: #2e7d32; font-size: 0.8em; padding: 3px 8px; border-radius: 10px; font-weight: bold; }
+.menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 20px; }
+.menu-item { background: white; padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); cursor: pointer; }
+.menu-item .icon { font-size: 2em; display: block; margin-bottom: 10px; }
+.hidden { display: none; }
+#page-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 100; padding: 20px; box-sizing: border-box; }
+.back-btn { background: #1a5f7a; color: white; border: none; padding: 10px 20px; border-radius: 10px; margin-bottom: 20px; }
