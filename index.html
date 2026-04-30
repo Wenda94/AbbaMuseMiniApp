@@ -3,50 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#1a1a1a">
-    <meta name="description" content="የአባ ሙሴ ጸሊም የተማሪዎች ህብረት ይፋዊ መተግበሪያ።">
-    <title>አባ ሙሴ ጸሊም ህብረት</title>
+    <meta name="theme-color" content="#1a5f7a">
+    <meta name="description" content="የአባ ሙሴ ጸሊም የተማሪዎች ህብረት ይፋዊ የዲጂታል መተግበሪያ። ለትምህርት፣ ለመንፈሳዊነት እና ለህብረት የተዘጋጀ።">
+    <meta name="author" content="Abba Muse Tselim Union">
     
-    <!-- የአማርኛ ፎንት ከ Google (Noto Sans Ethiopic) -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>አባ ሙሴ ጸሊም የተማሪዎች ህብረት - ዲጂታል መተግበሪያ</title>
     
-    <!-- ፕሮፌሽናል አይኮኖች ከ FontAwesome (ምንም አይነት Emoji አልተጠቀምንም) -->
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- የቴሌግራም ሚኒ አፕሊኬሽን ማገናኛ -->
+    <!-- Telegram Web App Script -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     
-    <!-- የዲዛይን ፋይል ማገናኛ -->
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <main id="application-wrapper" class="app-container">
 
-        <!-- ==========================================
-             1. ዋና ማሳያ ገጽ (Dashboard Screen)
-        =========================================== -->
-        <section id="screen-dashboard" class="app-screen active-screen">
-            
-            <!-- የላይኛው ራስጌ -->
+        <!-- =========================================================
+             ክፍል አንድ፡ ዋናው ማሳያ ገጽ (Dashboard)
+        ========================================================== -->
+        <section id="screen-dashboard" class="app-screen active-screen" role="main">
             <header class="dashboard-header">
                 <div class="user-profile-section">
                     <div class="profile-image-container">
-                        <i class="fa-solid fa-church"></i>
+                        <i class="fa-solid fa-circle-user placeholder-avatar"></i>
+                        <img src="" id="user-profile-image" alt="የተጠቃሚ ምስል" class="hidden-element">
                     </div>
                     <div class="user-greeting-info">
-                        <span class="greeting-time" id="time-based-greeting">ሰላም፣</span>
+                        <span class="greeting-time" id="time-based-greeting">እንኳን ደህና መጡ፣</span>
                         <h1 class="user-full-name" id="display-user-name">እየጫነ ነው...</h1>
                     </div>
                 </div>
+                <button class="notification-trigger" onclick="appNavigation.openScreen('screen-notifications')">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="notification-badge" id="unread-notifications-count">3</span>
+                </button>
             </header>
 
-            <!-- ፕሮፌሽናል የዲጂታል መታወቂያ ካርድ (Glassmorphism) -->
             <article class="membership-card-container">
                 <div class="glass-morphism-card">
                     <div class="card-header-row">
                         <div class="organization-branding">
-                            <i class="fa-solid fa-cross"></i>
-                            <span class="brand-title">አባ ሙሴ ጸሊም ህብረት</span>
+                            <i class="fa-solid fa-church brand-icon"></i>
+                            <span class="brand-title">አባ ሙሴ ጸሊም</span>
                         </div>
                         <div class="verification-icon">
                             <i class="fa-solid fa-qrcode"></i>
@@ -55,8 +61,8 @@
                     <div class="card-details-row">
                         <h2 class="member-name-display" id="card-member-name">ስም በመፈለግ ላይ...</h2>
                         <div class="member-id-display">
-                            <span>መለያ ቁጥር: </span>
-                            <span id="card-member-id">00000000</span>
+                            <span class="id-label">መለያ ቁጥር:</span>
+                            <span class="id-value" id="card-member-id">000000</span>
                         </div>
                     </div>
                     <div class="card-footer-row">
@@ -64,149 +70,259 @@
                             <i class="fa-solid fa-circle-check"></i>
                             <span>ንቁ አባል</span>
                         </div>
+                        <div class="membership-tier">
+                            <i class="fa-solid fa-star"></i>
+                            <span>መደበኛ</span>
+                        </div>
                     </div>
                 </div>
             </article>
 
-            <!-- ዋና የአገልግሎት ማውጫ (Services Grid) -->
+            <!-- Admin Access Button (Hidden by default, shown only for admins via JS) -->
+            <div id="admin-access-container" class="hidden-element" style="padding: 0 20px; margin-top: 15px;">
+                <button class="admin-panel-btn" onclick="appNavigation.openScreen('screen-admin')">
+                    <i class="fa-solid fa-user-shield"></i> ወደ አድሚን ፓኔል ግባ
+                </button>
+            </div>
+
+            <aside class="quick-stats-bar">
+                <div class="stat-item">
+                    <i class="fa-solid fa-fire stat-icon"></i>
+                    <div class="stat-text">
+                        <span class="stat-value">12</span>
+                        <span class="stat-label">የጥናት ሰዓት</span>
+                    </div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <i class="fa-solid fa-trophy stat-icon"></i>
+                    <div class="stat-text">
+                        <span class="stat-value">450</span>
+                        <span class="stat-label">ነጥቦች</span>
+                    </div>
+                </div>
+            </aside>
+
             <nav class="services-grid-navigation">
                 <h3 class="section-heading">ዋና አገልግሎቶች</h3>
                 <div class="grid-layout">
-                    
+                    <button class="grid-card-item" onclick="appNavigation.openScreen('screen-library')">
+                        <div class="card-icon-wrapper theme-blue"><i class="fa-solid fa-book-open-reader"></i></div>
+                        <span class="card-title">ትምህርት መርጃ</span>
+                    </button>
                     <button class="grid-card-item" onclick="appNavigation.openScreen('screen-prayer')">
-                        <div class="card-icon-wrapper">
-                            <i class="fa-solid fa-envelope-open-text"></i>
-                        </div>
-                        <span class="card-title">የምስጢር ሳጥን</span>
+                        <div class="card-icon-wrapper theme-gold"><i class="fa-solid fa-hands-praying"></i></div>
+                        <span class="card-title">የጸሎት ሳጥን</span>
                     </button>
-                    
                     <button class="grid-card-item" onclick="appNavigation.openScreen('screen-tutoring')">
-                        <div class="card-icon-wrapper">
-                            <i class="fa-solid fa-graduation-cap"></i>
-                        </div>
-                        <span class="card-title">ቱቶሪያል ጥያቄ</span>
+                        <div class="card-icon-wrapper theme-green"><i class="fa-solid fa-chalkboard-user"></i></div>
+                        <span class="card-title">ቱቶሪያል</span>
                     </button>
-
-                    <button class="grid-card-item" onclick="window.Telegram.WebApp.showAlert('የጥናት መርጃዎች በቅርቡ ይጫናሉ።')">
-                        <div class="card-icon-wrapper">
-                            <i class="fa-solid fa-book-open-reader"></i>
-                        </div>
-                        <span class="card-title">የጥናት መርጃ</span>
+                    <button class="grid-card-item" onclick="appNavigation.openScreen('screen-leaderboard')">
+                        <div class="card-icon-wrapper theme-teal"><i class="fa-solid fa-ranking-star"></i></div>
+                        <span class="card-title">ደረጃ ሰንጠረዥ</span>
                     </button>
-
-                    <button class="grid-card-item" onclick="window.Telegram.WebApp.showAlert('የዕለት መንፈሳዊ ስንቅ በቅርቡ ይጀምራል።')">
-                        <div class="card-icon-wrapper">
-                            <i class="fa-solid fa-quote-left"></i>
-                        </div>
-                        <span class="card-title">የዕለት ስንቅ</span>
-                    </button>
-
                 </div>
             </nav>
+            <div class="bottom-spacing"></div>
         </section>
 
-        <!-- ==========================================
-             2. የምስጢር ሳጥን ቅጽ (Prayer/Secret Box Screen)
-        =========================================== -->
-        <section id="screen-prayer" class="app-screen hidden-screen">
+        <!-- =========================================================
+             ክፍል ሁለት፡ የትምህርት መርጃ ማዕከል (Library)
+        ========================================================== -->
+        <section id="screen-library" class="app-screen hidden-screen">
             <header class="sub-screen-header">
-                <button class="back-navigation" onclick="appNavigation.goBack()">
-                    <i class="fa-solid fa-arrow-left"></i>
-                </button>
-                <h2 class="sub-screen-title">የምስጢር ሳጥን</h2>
-                <div class="header-action-placeholder"></div>
+                <button class="back-navigation" onclick="appNavigation.goBack()"><i class="fa-solid fa-arrow-left"></i></button>
+                <h2 class="sub-screen-title">የትምህርት መርጃ ማዕከል</h2>
             </header>
             <div class="screen-content-scrollable">
+                <div class="search-bar-container">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" class="search-input" placeholder="ኖቶችን ይፈልጉ...">
+                </div>
+                <div class="filter-tabs-container">
+                    <button class="filter-tab active-tab">9ኛ</button>
+                    <button class="filter-tab">10ኛ</button>
+                    <button class="filter-tab">11ኛ</button>
+                    <button class="filter-tab">12ኛ</button>
+                </div>
+                <div class="document-list-container" id="student-docs-list">
+                    <!-- Documents will be loaded here via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             ክፍል ሦስት፡ የምስጢር እና የጸሎት ሳጥን (Prayer Box)
+        ========================================================== -->
+        <section id="screen-prayer" class="app-screen hidden-screen">
+            <header class="sub-screen-header">
+                <button class="back-navigation" onclick="appNavigation.goBack()"><i class="fa-solid fa-arrow-left"></i></button>
+                <h2 class="sub-screen-title">የምስጢር ሳጥን</h2>
+            </header>
+            <div class="screen-content-scrollable centered-content">
+                <div class="confidentiality-notice">
+                    <i class="fa-solid fa-shield-halved notice-icon"></i>
+                    <p class="notice-text">ይህ መረጃ በሚስጥር የተጠበቀ ነው። የሚደርሰው ለአስተዳዳሪዎች ብቻ ነው።</p>
+                </div>
                 <form id="prayer-request-form" class="standard-form">
                     <div class="form-group">
-                        <label class="form-label" for="secret-message">የልብዎን ሀሳብ በነጻነት ያካፍሉን (በምስጢር ይጠበቃል)</label>
-                        <textarea id="secret-message" class="form-textarea" placeholder="መልእክትዎን እዚህ ይጻፉ..." required></textarea>
+                        <label class="form-label">የመልእክቱ አይነት</label>
+                        <select id="message-type" class="form-select">
+                            <option value="prayer">የጸሎት ጥያቄ</option>
+                            <option value="counseling">የምክር አገልግሎት</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">መልእክት</label>
+                        <textarea id="secret-message" class="form-textarea" rows="6" placeholder="የልብዎን ሀሳብ ያካፍሉን..." required></textarea>
                     </div>
                     <button type="submit" class="primary-action-button">
-                        <i class="fa-solid fa-paper-plane"></i>
-                        <span>መልእክቱን ላክ</span>
+                        <i class="fa-solid fa-paper-plane"></i> ላክ
                     </button>
                 </form>
             </div>
         </section>
 
-        <!-- ==========================================
-             3. የቱቶሪያል ጥያቄ ቅጽ (Tutoring Request Screen)
-        =========================================== -->
+        <!-- =========================================================
+             ክፍል አራት፡ የቱቶሪያል ጥያቄ (Tutoring)
+        ========================================================== -->
         <section id="screen-tutoring" class="app-screen hidden-screen">
             <header class="sub-screen-header">
-                <button class="back-navigation" onclick="appNavigation.goBack()">
-                    <i class="fa-solid fa-arrow-left"></i>
-                </button>
-                <h2 class="sub-screen-title">የቱቶሪያል ድጋፍ መጠየቂያ</h2>
-                <div class="header-action-placeholder"></div>
+                <button class="back-navigation" onclick="appNavigation.goBack()"><i class="fa-solid fa-arrow-left"></i></button>
+                <h2 class="sub-screen-title">ቱቶሪያል መጠየቂያ</h2>
             </header>
             <div class="screen-content-scrollable">
                 <form id="tutoring-request-form" class="standard-form">
                     <div class="form-group">
-                        <label class="form-label" for="subject-topic">የሚያስቸግርዎ የትምህርት አይነት እና ርዕስ</label>
-                        <input type="text" id="subject-topic" class="form-input" placeholder="ለምሳሌ፡ ፊዚክስ (Mechanics)" required>
+                        <label class="form-label">የትምህርት አይነት</label>
+                        <select id="subject-select" class="form-select" required>
+                            <option value="math">ሂሳብ</option>
+                            <option value="physics">ፊዚክስ</option>
+                            <option value="chemistry">ኬሚስትሪ</option>
+                        </select>
                     </div>
-                    <button type="submit" class="primary-action-button">
-                        <i class="fa-solid fa-check"></i>
-                        <span>ጥያቄውን አስገባ</span>
-                    </button>
+                    <div class="form-group">
+                        <label class="form-label">የሚከብድዎት ርዕስ</label>
+                        <input type="text" id="specific-topic" class="form-input" required>
+                    </div>
+                    <button type="submit" class="primary-action-button"><i class="fa-solid fa-check"></i> አስገባ</button>
                 </form>
             </div>
         </section>
 
-        <!-- ==========================================
-             4. የአስተዳዳሪ መቆጣጠሪያ (Admin Control Panel)
-        =========================================== -->
-        <section id="screen-admin" class="app-screen hidden-screen">
+        <!-- =========================================================
+             ክፍል አምስት፡ ማሳወቂያዎች (Notifications)
+        ========================================================== -->
+        <section id="screen-notifications" class="app-screen hidden-screen">
             <header class="sub-screen-header">
-                <h2 class="sub-screen-title">የአስተዳዳሪ መቆጣጠሪያ</h2>
+                <button class="back-navigation" onclick="appNavigation.goBack()"><i class="fa-solid fa-arrow-left"></i></button>
+                <h2 class="sub-screen-title">ማሳወቂያዎች</h2>
             </header>
             <div class="screen-content-scrollable">
-                <div class="standard-form admin-card">
-                    <h3 class="admin-header">
-                        <i class="fa-solid fa-bullhorn"></i> አጠቃላይ መልእክት ማሰራጫ
-                    </h3>
-                    <form id="admin-broadcast-form">
+                <div class="notification-list" id="user-notifications-list">
+                    <!-- Notifications loaded via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             ክፍል ስድስት፡ የአስተዳዳሪ ማዕከል (ADMIN PANEL) - አዲስ የተጨመረ
+        ========================================================== -->
+        <section id="screen-admin" class="app-screen hidden-screen admin-theme">
+            <header class="sub-screen-header admin-header">
+                <button class="back-navigation" onclick="appNavigation.goBack()"><i class="fa-solid fa-arrow-left"></i></button>
+                <h2 class="sub-screen-title">አስተዳዳሪ (Admin Panel)</h2>
+            </header>
+
+            <div class="screen-content-scrollable">
+                <!-- Data Overview -->
+                <div class="admin-stats-grid">
+                    <div class="admin-stat-card">
+                        <i class="fa-solid fa-users"></i>
+                        <h3 id="admin-total-users">0</h3>
+                        <span>ጠቅላላ አባላት</span>
+                    </div>
+                    <div class="admin-stat-card">
+                        <i class="fa-solid fa-envelope"></i>
+                        <h3 id="admin-total-messages">0</h3>
+                        <span>አዲስ መልእክቶች</span>
+                    </div>
+                </div>
+
+                <div class="admin-tabs">
+                    <button class="admin-tab active-tab" onclick="adminPanel.switchTab('upload')">ፋይል ጫን</button>
+                    <button class="admin-tab" onclick="adminPanel.switchTab('messages')">መልእክቶች</button>
+                    <button class="admin-tab" onclick="adminPanel.switchTab('broadcast')">ማሳወቂያ</button>
+                </div>
+
+                <!-- Admin Upload Doc Section -->
+                <div id="admin-tab-upload" class="admin-tab-content active-content">
+                    <form id="admin-upload-form" class="standard-form">
                         <div class="form-group">
-                            <label class="form-label" for="broadcast-message">መልእክቱን ይጻፉ (ለሁሉም አባላት በስማቸው ይላካል)</label>
-                            <textarea id="broadcast-message" class="form-textarea" placeholder="መልእክትዎን እዚህ ይጻፉ..." required></textarea>
+                            <label class="form-label">የፋይሉ ርዕስ</label>
+                            <input type="text" id="doc-title" class="form-input" required>
                         </div>
-                        <button type="submit" class="primary-action-button">
-                            <i class="fa-solid fa-share-nodes"></i>
-                            <span>መልእክት ላክ</span>
-                        </button>
+                        <div class="form-group">
+                            <label class="form-label">የክፍል ደረጃ</label>
+                            <select id="doc-grade" class="form-select">
+                                <option value="9">9ኛ ክፍል</option>
+                                <option value="10">10ኛ ክፍል</option>
+                                <option value="11">11ኛ ክፍል</option>
+                                <option value="12">12ኛ ክፍል</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">ፋይሉን ያስገቡ (Link / URL)</label>
+                            <input type="url" id="doc-url" class="form-input" placeholder="https://..." required>
+                        </div>
+                        <button type="submit" class="primary-action-button admin-btn"><i class="fa-solid fa-upload"></i> አትም (Publish)</button>
+                    </form>
+                </div>
+
+                <!-- Admin View Messages Section -->
+                <div id="admin-tab-messages" class="admin-tab-content hidden-element">
+                    <div class="message-list" id="admin-inbox-list">
+                        <!-- Messages dynamically populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Admin Broadcast Section -->
+                <div id="admin-tab-broadcast" class="admin-tab-content hidden-element">
+                    <form id="admin-broadcast-form" class="standard-form">
+                        <div class="form-group">
+                            <label class="form-label">የማሳወቂያ ርዕስ</label>
+                            <input type="text" id="broadcast-title" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">መልእክቱ</label>
+                            <textarea id="broadcast-message" class="form-textarea" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="primary-action-button admin-btn"><i class="fa-solid fa-bullhorn"></i> ለሁሉም አባላት ላክ</button>
                     </form>
                 </div>
             </div>
         </section>
 
-        <!-- ==========================================
-             የታችኛው ማውጫ (Bottom Navigation Bar)
-        =========================================== -->
+        <!-- =========================================================
+             Bottom Navigation Bar
+        ========================================================== -->
         <nav class="bottom-navigation-bar">
-            
             <button class="nav-button active-nav-item" onclick="appNavigation.switchTab('screen-dashboard')">
                 <i class="fa-solid fa-house"></i>
                 <span>ዋና ገጽ</span>
             </button>
-            
-            <button class="nav-button" onclick="appNavigation.switchTab('screen-prayer')">
-                <i class="fa-solid fa-box-archive"></i>
-                <span>ምስጢር ሳጥን</span>
+            <button class="nav-button" onclick="appNavigation.switchTab('screen-library')">
+                <i class="fa-solid fa-book"></i>
+                <span>ትምህርት</span>
             </button>
-            
-            <!-- ይህ በተን ለተራ ተማሪዎች አይደነገግም፣ ለአስተዳዳሪው ብቻ በ JS በኩል ይታያል -->
-            <button class="nav-button" id="admin-nav-item" style="display: none;" onclick="appNavigation.switchTab('screen-admin')">
-                <i class="fa-solid fa-screwdriver-wrench"></i>
-                <span style="color:var(--status-danger);">አስተዳዳሪ</span>
+            <button class="nav-button" onclick="appNavigation.openScreen('screen-prayer')">
+                <i class="fa-solid fa-hands-praying"></i>
+                <span>ጸሎት</span>
             </button>
-            
         </nav>
 
     </main>
-    
-    <!-- ጃቫስክሪፕት ማገናኛ -->
     <script src="script.js"></script>
 </body>
-</html>
+                </html>
