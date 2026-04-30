@@ -1,51 +1,30 @@
 /* ==========================================================================
-   የአባ ሙሴ ጸሊም የተማሪዎች ህብረት - ዲጂታል መተግበሪያ
-   ዋና የቅንብር ፋይል (CSS) - በሎጎው ቀለማት ላይ የተመሰረተ (Orange, Black, Cream)
+   የአባ ሙሴ ጸሊም - Cream & Black Brand Theme
    ========================================================================== */
 
-/* 1. መሠረታዊ ቀለማት እና ልኬቶች (CSS Variables) */
 :root {
-    /* ከሎጎው የተወሰዱ ቀለማት (Brand Colors) */
-    --brand-orange: #f37021;       /* ዋና ብርቱካናማ ቀለም */
-    --brand-orange-dark: #d95e16;  /* ደማቅ ብርቱካናማ (ለ Hover) */
-    --brand-black: #1c1c1c;        /* ጥቁር ቀለም */
-    --brand-cream: #f4f1ea;        /* የሎጎው የጀርባ ክሬም ቀለም */
+    /* የሎጎ ቀለማት */
+    --brand-cream: #f2ebd9;        /* ክሬም ባክግራውንድ */
+    --brand-orange: #f37021;       /* ብርቱካናማ */
+    --brand-black: #231f20;        /* ጥቁር */
     
-    /* አጠቃላይ ቀለማት (Theme Colors) */
+    /* አጠቃላይ አጠቃቀም */
     --bg-color: var(--brand-cream);
-    --surface-color: #ffffff;
+    --surface-color: #ffffff;      /* ለካርዶች ነጭ */
     --text-primary: var(--brand-black);
-    --text-secondary: #666666;
-    --border-color: rgba(28, 28, 28, 0.1);
+    --text-secondary: #555555;
+    --border-color: rgba(35, 31, 32, 0.15);
     
-    /* ጥላዎች እና ማዕዘኖች (Shadows & Borders) */
-    --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.06);
-    --shadow-card: 0 12px 30px rgba(243, 112, 33, 0.15);
-    --border-radius-lg: 24px;
+    --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.05);
+    --shadow-card: 0 8px 25px rgba(243, 112, 33, 0.15);
+    
+    --border-radius-lg: 20px;
     --border-radius-md: 16px;
     --border-radius-sm: 10px;
-    
-    /* እነማዎች (Animations) */
-    --transition-fast: 0.2s ease;
-    --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* የቴሌግራም ዳርክ ሞድ (Dark Mode) ድጋፍ - ተጠቃሚው ዳርክ ሞድ ከከፈተ */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg-color: #121212;
-        --surface-color: #1e1e1e;
-        --text-primary: #ffffff;
-        --text-secondary: #aaaaaa;
-        --border-color: rgba(255, 255, 255, 0.1);
-        --brand-cream: #1a1a1a;
-    }
-}
-
-/* 2. አጠቃላይ ማስተካከያዎች (Reset & Base) */
 * {
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     box-sizing: border-box;
     font-family: 'Noto Sans Ethiopic', sans-serif;
     -webkit-tap-highlight-color: transparent;
@@ -54,623 +33,154 @@
 body {
     background-color: var(--bg-color);
     color: var(--text-primary);
-    overflow: hidden; /* የውጭውን ስክሮል መዝጋት */
+    overflow: hidden;
     font-size: 15px;
-    line-height: 1.5;
 }
 
-/* 3. የመተግበሪያው መጠቅለያ (App Container & Screens) */
 .app-container {
-    width: 100vw;
-    height: 100vh;
-    height: 100dvh; /* ለሞባይል ትክክለኛ ቁመት */
-    position: relative;
-    display: flex;
-    flex-direction: column;
+    width: 100vw; height: 100vh; height: 100dvh;
+    position: relative; display: flex; flex-direction: column;
 }
 
 .app-screen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
     background-color: var(--bg-color);
-    transition: transform var(--transition-smooth), opacity var(--transition-smooth);
+    transition: transform 0.3s ease, opacity 0.3s ease;
     z-index: 1;
 }
 
-.active-screen {
-    transform: translateX(0);
-    opacity: 1;
-    z-index: 5;
-}
+.active-screen { transform: translateX(0); opacity: 1; z-index: 5; }
+.hidden-screen { transform: translateX(100%); opacity: 0; pointer-events: none; }
 
-.hidden-screen {
-    transform: translateX(100%);
-    opacity: 0;
-    pointer-events: none;
-}
-
-/* 4. ዋና ገጽ (Dashboard Header) */
-.dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    padding-top: max(20px, env(safe-area-inset-top));
+/* Header */
+.dashboard-header, .sub-screen-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px; padding-top: max(20px, env(safe-area-inset-top));
     background-color: var(--bg-color);
 }
-
-.user-profile-section {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
+.sub-screen-header { border-bottom: 1px solid var(--border-color); }
 
 .profile-image-container {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--brand-orange), var(--brand-black));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 24px;
-    overflow: hidden;
-    border: 2px solid white;
-    box-shadow: var(--shadow-soft);
+    width: 45px; height: 45px; border-radius: 50%;
+    background: var(--brand-black); color: var(--brand-orange);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; overflow: hidden; border: 2px solid var(--brand-orange);
+}
+.profile-image-container img { width: 100%; height: 100%; object-fit: cover; }
+.user-greeting-info { display: flex; flex-direction: column; margin-left: 10px;}
+.greeting-time { font-size: 12px; color: var(--text-secondary); }
+.user-full-name { font-size: 16px; font-weight: 700; color: var(--brand-black); }
+
+.notification-trigger, .back-navigation {
+    background: var(--surface-color); border: 1px solid var(--border-color);
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; color: var(--brand-black); position: relative;
+    cursor: pointer;
+}
+.notification-badge {
+    position: absolute; top: -2px; right: -2px;
+    background-color: var(--brand-orange); color: white;
+    font-size: 10px; font-weight: bold; min-width: 18px; height: 18px;
+    border-radius: 9px; display: flex; align-items: center; justify-content: center;
 }
 
-.profile-image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+/* ፕሪሚየም ክሬም እና ጥቁር ዲጂታል ካርድ */
+.membership-card-container { padding: 0 20px; margin-bottom: 20px; }
+.brand-card {
+    background: var(--surface-color);
+    border: 2px solid var(--brand-black);
+    border-radius: var(--border-radius-lg);
+    padding: 20px; color: var(--brand-black);
+    box-shadow: var(--shadow-card);
+    position: relative; overflow: hidden;
 }
+.brand-card::after {
+    content: ''; position: absolute; top: -30px; right: -30px;
+    width: 120px; height: 120px;
+    background: rgba(243, 112, 33, 0.1); border-radius: 50%;
+}
+.card-header-row { display: flex; justify-content: space-between; margin-bottom: 20px; }
+.organization-branding { display: flex; align-items: center; gap: 8px; font-weight: 700; }
+.brand-icon { color: var(--brand-orange); font-size: 20px; }
+.verification-icon { color: var(--brand-orange); font-size: 24px; }
+.member-name-display { font-size: 20px; font-weight: 800; margin-bottom: 5px; }
+.member-id-display { font-size: 13px; color: var(--text-secondary); font-weight: 600; }
+.card-footer-row {
+    display: flex; justify-content: space-between; border-top: 1px solid var(--border-color);
+    padding-top: 15px; margin-top: 15px; font-size: 12px; font-weight: 700;
+}
+.active-status i { color: #4caf50; margin-right: 5px; }
+.membership-tier i { color: var(--brand-orange); margin-right: 5px; }
+
+/* Services Grid & Forms */
+.services-grid-navigation { padding: 0 20px; flex: 1; overflow-y: auto; }
+.section-heading { font-size: 16px; margin-bottom: 15px; color: var(--brand-black); }
+.grid-layout { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+.grid-card-item {
+    background: var(--surface-color); border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md); padding: 20px 10px;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    box-shadow: var(--shadow-soft); cursor: pointer;
+}
+.card-icon-wrapper { width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.theme-orange { background: rgba(243, 112, 33, 0.1); color: var(--brand-orange); }
+.theme-black { background: rgba(35, 31, 32, 0.05); color: var(--brand-black); }
+.card-title { font-size: 13px; font-weight: 700; color: var(--brand-black); }
+
+/* Forms */
+.screen-content-scrollable { flex: 1; overflow-y: auto; padding: 20px; }
+.standard-form { background: var(--surface-color); padding: 20px; border-radius: var(--border-radius-md); border: 1px solid var(--border-color); }
+.form-group { margin-bottom: 15px; }
+.form-label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--brand-black); }
+.form-input, .form-select, .form-textarea {
+    width: 100%; background: var(--bg-color); border: 1px solid var(--border-color);
+    padding: 12px; border-radius: var(--border-radius-sm); font-size: 14px;
+}
+.primary-action-button {
+    width: 100%; background: var(--brand-orange); color: white; border: none;
+    padding: 15px; border-radius: var(--border-radius-sm); font-size: 16px; font-weight: 700;
+    cursor: pointer; margin-top: 10px; display: flex; justify-content: center; gap: 10px;
+}
+.admin-panel-btn {
+    width: 100%; background: var(--brand-black); color: var(--brand-cream);
+    border: none; padding: 12px; border-radius: var(--border-radius-sm); font-weight: bold; cursor: pointer;
+}
+
+/* የተስተካከለ የታችኛው ማውጫ (Bottom Navigation) - ሰፊ ክፍተት */
+.bottom-navigation-bar {
+    position: absolute; bottom: 0; left: 0; width: 100%;
+    background: var(--surface-color);
+    display: flex; justify-content: space-evenly; /* ይበልጥ ክፍተት እንዲኖረው */
+    padding: 15px 10px; padding-bottom: max(15px, env(safe-area-inset-bottom));
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.08);
+    border-top-left-radius: 20px; border-top-right-radius: 20px;
+    z-index: 100; border-top: 1px solid var(--border-color);
+}
+.nav-button {
+    background: none; border: none; display: flex; flex-direction: column;
+    align-items: center; gap: 6px; color: var(--text-secondary);
+    font-size: 12px; font-weight: 700; width: 70px; cursor: pointer;
+}
+.nav-button i { font-size: 22px; } /* አይኮኖቹ ጎላ እንዲሉ */
+.active-nav-item { color: var(--brand-orange); }
+
+.bottom-spacing { height: 110px; } /* ከታች ያለው ማውጫ ጽሁፍ እንዳይጋርድ ክፍተቱ ሰፋ ተደርጓል */
+
+/* Admin Tabs */
+.admin-tabs { display: flex; background: var(--surface-color); border-radius: var(--border-radius-sm); margin-bottom: 20px; border: 1px solid var(--border-color); overflow: hidden; }
+.admin-tab { flex: 1; padding: 12px; border: none; background: none; font-weight: 700; cursor: pointer; color: var(--text-secondary); }
+.admin-tab.active-tab { background: var(--brand-orange); color: white; }
 
 .hidden-element { display: none !important; }
 
-.user-greeting-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.greeting-time {
-    font-size: 12px;
-    color: var(--text-secondary);
-}
-
-.user-full-name {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--text-primary);
-}
-
-.notification-trigger {
-    background: var(--surface-color);
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    color: var(--brand-black);
-    position: relative;
-    box-shadow: var(--shadow-soft);
-    cursor: pointer;
-}
-
-.notification-badge {
-    position: absolute;
-    top: -2px;
-    right: -2px;
-    background-color: var(--brand-orange);
-    color: white;
-    font-size: 10px;
-    font-weight: bold;
-    min-width: 18px;
-    height: 18px;
-    border-radius: 9px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid var(--surface-color);
-}
-
-/* 5. የዲጂታል መታወቂያ ካርድ (Premium Digital Card) */
-.membership-card-container {
-    padding: 0 20px;
-    margin-bottom: 20px;
-}
-
-.glass-morphism-card {
-    /* ጥቁር ካርድ ከብርቱካናማ ብርሃን ጋር (Black & Orange Theme) */
-    background: linear-gradient(135deg, var(--brand-black) 0%, #333333 100%);
-    border-radius: var(--border-radius-lg);
-    padding: 20px;
-    color: white;
-    box-shadow: var(--shadow-card);
-    position: relative;
-    overflow: hidden;
-}
-
-/* ካርዱ ላይ ያለ ጌጥ */
-.glass-morphism-card::after {
-    content: '';
-    position: absolute;
-    top: -50px;
-    right: -50px;
-    width: 150px;
-    height: 150px;
-    background: radial-gradient(circle, rgba(243, 112, 33, 0.4) 0%, transparent 70%);
-    border-radius: 50%;
-}
-
-.card-header-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-    position: relative;
-    z-index: 2;
-}
-
-.organization-branding {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.brand-icon {
-    color: var(--brand-orange);
-    font-size: 20px;
-}
-
-.brand-title {
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 0.5px;
-}
-
-.verification-icon {
-    font-size: 24px;
-    color: var(--brand-orange);
-    background: rgba(255, 255, 255, 0.1);
-    padding: 5px;
-    border-radius: 8px;
-}
-
-.card-details-row {
-    margin-bottom: 20px;
-    position: relative;
-    z-index: 2;
-}
-
-.member-name-display {
-    font-size: 22px;
-    font-weight: 800;
-    margin-bottom: 5px;
-}
-
-.member-id-display {
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.7);
-    letter-spacing: 1px;
-}
-
-.card-footer-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 15px;
-    position: relative;
-    z-index: 2;
-}
-
-.membership-status, .membership-tier {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.active-status i { color: #4caf50; }
-.membership-tier i { color: var(--brand-orange); }
-
-/* 6. ፈጣን መረጃዎች (Quick Stats) */
-.quick-stats-bar {
-    display: flex;
-    background: var(--surface-color);
-    margin: 0 20px 20px;
-    padding: 15px;
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-soft);
-}
-
-.stat-item {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-}
-
-.stat-icon {
-    font-size: 24px;
-    color: var(--brand-orange);
-    background: rgba(243, 112, 33, 0.1);
-    padding: 10px;
-    border-radius: 12px;
-}
-
-.stat-text {
-    display: flex;
-    flex-direction: column;
-}
-
-.stat-value {
-    font-size: 18px;
-    font-weight: 800;
-    color: var(--brand-black);
-}
-
-.stat-label {
-    font-size: 11px;
-    color: var(--text-secondary);
-}
-
-.stat-divider {
-    width: 1px;
-    background-color: var(--border-color);
-    margin: 0 10px;
-}
-
-/* 7. አገልግሎቶች (Services Grid) */
-.services-grid-navigation {
-    padding: 0 20px;
-    flex: 1;
-    overflow-y: auto;
-}
-
-.section-heading {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 15px;
-    color: var(--text-primary);
-}
-
-.grid-layout {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    padding-bottom: 20px;
-}
-
-.grid-card-item {
-    background: var(--surface-color);
-    border: none;
-    border-radius: var(--border-radius-md);
-    padding: 20px 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    box-shadow: var(--shadow-soft);
-    cursor: pointer;
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.grid-card-item:active {
-    transform: scale(0.95);
-}
-
-.card-icon-wrapper {
-    width: 50px;
-    height: 50px;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-}
-
-/* Icon Colors using Brand accents */
-.theme-blue { background: rgba(33, 150, 243, 0.1); color: #2196f3; }
-.theme-gold { background: rgba(255, 193, 7, 0.1); color: #ffc107; }
-.theme-purple { background: rgba(156, 39, 176, 0.1); color: #9c27b0; }
-.theme-green { background: rgba(76, 175, 80, 0.1); color: #4caf50; }
-.theme-orange { background: rgba(243, 112, 33, 0.1); color: var(--brand-orange); }
-.theme-teal { background: rgba(0, 150, 136, 0.1); color: #009688; }
-
-.card-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-primary);
-}
-
-/* 8. የውስጥ ገጾች እና ቅጾች (Sub-screens & Forms) */
-.sub-screen-header {
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    padding-top: max(20px, env(safe-area-inset-top));
-    background: var(--surface-color);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    z-index: 10;
-}
-
-.back-navigation {
-    background: none;
-    border: none;
-    font-size: 20px;
-    color: var(--brand-black);
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-
-.sub-screen-title {
-    font-size: 18px;
-    font-weight: 700;
-    flex: 1;
-    text-align: center;
-    margin-right: 40px; /* To center text properly */
-}
-
-.screen-content-scrollable {
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px;
-}
-
-.centered-content {
-    display: flex;
-    flex-direction: column;
-}
-
-.standard-form {
-    background: var(--surface-color);
-    padding: 20px;
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-soft);
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: var(--text-secondary);
-}
-
-.form-input, .form-select, .form-textarea {
-    width: 100%;
-    background: var(--bg-color);
-    border: 1px solid var(--border-color);
-    padding: 12px 15px;
-    border-radius: var(--border-radius-sm);
-    font-size: 14px;
-    color: var(--text-primary);
-    transition: border-color var(--transition-fast);
-}
-
-.form-input:focus, .form-select:focus, .form-textarea:focus {
-    outline: none;
-    border-color: var(--brand-orange);
-    box-shadow: 0 0 0 3px rgba(243, 112, 33, 0.1);
-}
-
-.primary-action-button {
-    width: 100%;
-    background: var(--brand-orange);
-    color: white;
-    border: none;
-    padding: 15px;
-    border-radius: var(--border-radius-sm);
-    font-size: 16px;
-    font-weight: 700;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    transition: background var(--transition-fast);
-    margin-top: 10px;
-}
-
-.primary-action-button:active {
-    background: var(--brand-orange-dark);
-}
-
-/* 9. አድሚን ፓኔል (Admin Panel Styles) */
-.admin-theme { background-color: #f8f9fa; }
-.admin-header { background-color: var(--brand-black); color: white; }
-.admin-header .back-navigation { color: white; }
-
-.admin-panel-btn {
-    width: 100%;
-    background: var(--brand-black);
-    color: var(--brand-orange);
-    border: 1px solid var(--brand-orange);
-    padding: 12px;
-    border-radius: var(--border-radius-sm);
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.admin-stats-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.admin-stat-card {
-    background: var(--surface-color);
-    padding: 20px;
-    border-radius: var(--border-radius-md);
-    text-align: center;
-    border-top: 4px solid var(--brand-orange);
-    box-shadow: var(--shadow-soft);
-}
-
-.admin-stat-card i { font-size: 24px; color: var(--brand-black); margin-bottom: 10px; }
-.admin-stat-card h3 { font-size: 24px; color: var(--brand-orange); }
-.admin-stat-card span { font-size: 12px; color: var(--text-secondary); font-weight: bold; }
-
-.admin-tabs {
-    display: flex;
-    background: var(--surface-color);
-    border-radius: var(--border-radius-sm);
-    overflow: hidden;
-    margin-bottom: 20px;
-    box-shadow: var(--shadow-soft);
-}
-
-.admin-tab {
-    flex: 1;
-    padding: 12px;
-    border: none;
-    background: none;
-    font-weight: 600;
-    color: var(--text-secondary);
-    cursor: pointer;
-}
-
-.admin-tab.active-tab {
-    background: var(--brand-orange);
-    color: white;
-}
-
-.admin-btn { background: var(--brand-black); }
-.admin-btn:active { background: #333; }
-
-/* 10. የታችኛው ማውጫ (Bottom Navigation) */
-.bottom-navigation-bar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: var(--surface-color);
-    display: flex;
-    justify-content: space-around;
-    padding: 10px 5px;
-    padding-bottom: max(10px, env(safe-area-inset-bottom));
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
-    z-index: 100;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-}
-
-.nav-button {
-    background: none;
-    border: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    color: var(--text-secondary);
-    font-size: 11px;
-    font-weight: 600;
-    width: 60px;
-    cursor: pointer;
-    transition: color var(--transition-fast);
-}
-
-.nav-button i {
-    font-size: 20px;
-    transition: transform var(--transition-fast);
-}
-
-.active-nav-item {
-    color: var(--brand-orange);
-}
-
-.active-nav-item i {
-    transform: translateY(-3px);
-}
-
-.bottom-spacing {
-    height: 80px; /* Spacer to prevent content hiding behind bottom nav */
-}
-
-/* 11. Notifications & Other Elements */
-.confidentiality-notice {
-    background: rgba(243, 112, 33, 0.1);
-    border: 1px solid rgba(243, 112, 33, 0.3);
-    padding: 15px;
-    border-radius: var(--border-radius-sm);
-    margin-bottom: 20px;
-    display: flex;
-    gap: 15px;
-    align-items: flex-start;
-}
-
-.notice-icon { color: var(--brand-orange); font-size: 20px; }
-.notice-text { font-size: 12px; color: var(--brand-black); line-height: 1.6; }
-
-/* Filter Tabs for Library */
-.filter-tabs-container {
-    display: flex;
-    gap: 10px;
-    margin: 15px 0;
-    overflow-x: auto;
-    padding-bottom: 5px;
-}
-.filter-tab {
-    padding: 8px 16px;
-    border: 1px solid var(--border-color);
-    background: var(--surface-color);
-    border-radius: 20px;
-    white-space: nowrap;
-    font-weight: 600;
-}
-.filter-tab.active-tab {
-    background: var(--brand-black);
-    color: white;
-    border-color: var(--brand-black);
-}
-
-/* Documents List */
-.document-item {
-    display: flex;
-    align-items: center;
-    background: var(--surface-color);
-    padding: 15px;
-    border-radius: var(--border-radius-sm);
-    margin-bottom: 10px;
-    box-shadow: var(--shadow-soft);
-}
-.document-icon {
-    font-size: 24px;
-    color: #e53935;
-    margin-right: 15px;
-}
-.document-details { flex: 1; }
-.document-title { font-size: 14px; margin-bottom: 4px; }
+/* Documents */
+.filter-tabs-container { display: flex; gap: 10px; margin-bottom: 15px; overflow-x: auto; padding-bottom: 5px; }
+.filter-tab { padding: 8px 16px; border: 1px solid var(--border-color); background: var(--surface-color); border-radius: 20px; white-space: nowrap; font-weight: 700; color: var(--brand-black); }
+.filter-tab.active-tab { background: var(--brand-black); color: white; }
+.document-item { display: flex; align-items: center; background: var(--surface-color); padding: 15px; border-radius: var(--border-radius-sm); margin-bottom: 10px; border: 1px solid var(--border-color); }
+.document-icon { font-size: 24px; color: var(--brand-orange); margin-right: 15px; }
+.document-title { font-size: 14px; font-weight: 700; color: var(--brand-black); }
 .document-meta { font-size: 11px; color: var(--text-secondary); }
-.download-button {
-    background: rgba(243, 112, 33, 0.1);
-    color: var(--brand-orange);
-    border: none;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    cursor: pointer;
-       }
